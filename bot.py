@@ -33,8 +33,6 @@ dp = Dispatcher()
 
 # Временные сессии
 user_sessions = {}
-# Счетчики для коротких callback_id
-callback_counters = {}
 
 # ============================================================
 # БЕСПЛАТНЫЙ API ДЛЯ ВОПРОСОВ
@@ -314,11 +312,8 @@ async def start_single_game(callback: types.CallbackQuery):
         return
     
     uid = callback.from_user.id
-    # Создаем короткий ID для сессии
-    session_id = f"s{uid}_{datetime.now().timestamp()}"
     
     user_sessions[uid] = {
-        'id': session_id,
         'score': 0,
         'current': 0,
         'questions': game_questions,
@@ -336,11 +331,15 @@ async def start_single_game(callback: types.CallbackQuery):
     await send_single_question(uid)
 
 async def send_single_question(uid):
+    """Отправляет следующий вопрос"""
     session = user_sessions.get(uid)
     if not session:
+        print(f"Сессия не найдена для {uid}")
         return
 
     q_idx = session['current']
+    
+    # Проверяем, не закончилась ли игра
     if q_idx >= len(session['questions']):
         await finish_single_game(uid)
         return
@@ -351,7 +350,8 @@ async def send_single_question(uid):
     builder = InlineKeyboardBuilder()
     for i, opt in enumerate(q['options']):
         # КОРОТКИЙ callback_data: q{uid}_{q_idx}_{i}
-        builder.button(text=opt[:20], callback_data=f"q{uid}_{q_idx}_{i}")
+        callback_data = f"q{uid}_{q_idx}_{i}"
+        builder.button(text=opt[:20], callback_data=callback_data)
     builder.adjust(2)
 
     difficulty_emoji = "🟢" if q.get('difficulty') == 'easy' else "🟡" if q.get('difficulty') == 'medium' else "🔴"
@@ -370,11 +370,14 @@ async def send_single_question(uid):
 
 @dp.callback_query(lambda c: c.data and c.data.startswith("q"))
 async def single_answer(callback: types.CallbackQuery):
+    """Обрабатывает ответ на вопрос"""
     try:
         # Формат: q{uid}_{q_idx}_{i}
         data = callback.data[1:]  # убираем q
         parts = data.split("_")
+        
         if len(parts) != 3:
+            print(f"Неверный формат: {callback.data}")
             await callback.answer("Ошибка формата")
             return
         
@@ -382,38 +385,75 @@ async def single_answer(callback: types.CallbackQuery):
         q_idx = int(parts[1])
         ans_idx = int(parts[2])
         
+        # Проверяем, что это тот же пользователь
         if uid != callback.from_user.id:
+            print(f"Чужой пользователь: {uid} != {callback.from_user.id}")
             await callback.answer("Это не твоя игра!")
             return
             
     except Exception as e:
-        print(f"Ошибка парсинга: {e}")
+        print(f"Ошибка парсинга: {e}, data: {callback.data}")
         await callback.answer("Ошибка данных")
         return
 
     session = user_sessions.get(uid)
-    if not session or session['current'] != q_idx:
-        await callback.answer("Уже не актуально")
+    
+    # Проверяем сессию
+    if not session:
+        print(f"Сессия не найдена для {uid}")
+        await callback.answer("Игра не найдена")
+        return
+    
+    # Проверяем индекс вопроса
+    if session['current'] != q_idx:
+        print(f"Не тот вопрос: ожидался {session['current']}, получен {q_idx}")
+        await callback.answer("Этот вопрос уже не актуален")
+        return
+    
+    # Проверяем, что вопрос существует
+    if q_idx >= len(session['questions']):
+        print(f"Вопрос {q_idx} вне диапазона")
+        await callback.answer("Ошибка вопроса")
         return
 
     q = session['questions'][q_idx]
+    
+    # Проверяем, что вариант ответа существует
+    if ans_idx >= len(q['options']):
+        print(f"Вариант {ans_idx} вне диапазона")
+        await callback.answer("Ошибка варианта")
+        return
+
     correct = (ans_idx == q['correct'])
     points = DIFFICULTY_POINTS.get(q.get('difficulty', 'medium'), 2)
 
     if correct:
         session['score'] += points
         await callback.answer("✅ Верно!")
-        await callback.message.answer(f"✅ **Верно!** +{points}\n\n{q.get('explanation', 'Молодец!')}", parse_mode="Markdown")
+        await callback.message.answer(
+            f"✅ **Верно!** +{points}\n\n{q.get('explanation', 'Молодец!')}", 
+            parse_mode="Markdown"
+        )
     else:
         correct_answer = q['options'][q['correct']]
         await callback.answer("❌ Неверно")
-        await callback.message.answer(f"❌ **Неверно**\n\nПравильный ответ: **{correct_answer}**\n\n{q.get('explanation', 'В следующий раз!')}", parse_mode="Markdown")
+        await callback.message.answer(
+            f"❌ **Неверно**\n\nПравильный ответ: **{correct_answer}**\n\n{q.get('explanation', 'В следующий раз!')}", 
+            parse_mode="Markdown"
+        )
 
+    # Переходим к следующему вопросу
     session['current'] += 1
     await callback.message.delete()
-    await send_single_question(uid)
+    
+    # Отправляем следующий вопрос или завершаем игру
+    if session['current'] < len(session['questions']):
+        await send_single_question(uid)
+    else:
+        await finish_single_game(uid)
 
 async def finish_single_game(uid):
+    """Завершает игру и сохраняет результат"""
     session = user_sessions.pop(uid, None)
     if not session:
         return
@@ -447,7 +487,7 @@ async def finish_single_game(uid):
     await bot.send_message(uid, result, reply_markup=keyboard, parse_mode="Markdown")
 
 # ============================================================
-# PVP
+# PVP (оставил как было, но можно сократить для объема)
 # ============================================================
 @dp.callback_query(F.data == "pvp_find")
 async def pvp_find(callback: types.CallbackQuery):
@@ -492,6 +532,7 @@ async def try_match():
     questions = await get_questions_for_game(topic_id, PVP_QUESTIONS, "all")
     
     if not questions or len(questions) < PVP_QUESTIONS:
+        # Если не получили вопросы, возвращаем игроков в очередь
         pvp_queue.add_to_queue(p1['id'], p1['name'], None)
         pvp_queue.add_to_queue(p2['id'], p2['name'], None)
         return
@@ -676,3 +717,7 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
