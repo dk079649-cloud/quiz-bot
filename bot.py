@@ -29,11 +29,11 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-# Временные сессии
+# Временные сессии для одиночной игры
 user_sessions = {}
 
 # ============================================================
-# ПОЛНЫЙ СПИСОК ВОПРОСОВ (4 ТЕМЫ, 15+ В КАЖДОЙ)
+# ПОЛНЫЙ СПИСОК ВОПРОСОВ (4 ТЕМЫ)
 # ============================================================
 questions_by_topic = {
     "telegram": {
@@ -53,14 +53,14 @@ questions_by_topic = {
                 "options": ["Павел Дуров", "Илон Маск", "Марк Цукерберг", "Билл Гейтс"],
                 "correct": 0,
                 "difficulty": "easy",
-                "explanation": "Павел Дуров — российский предприниматель, создатель ВКонтакте и Telegram"
+                "explanation": "Павел Дуров — создатель ВКонтакте и Telegram"
             },
             {
                 "question": "Что означает 'MTProto' в Telegram?",
                 "options": ["Название протокола", "Имя бота", "Тип стикера", "Вид шифрования"],
                 "correct": 0,
                 "difficulty": "hard",
-                "explanation": "MTProto — это собственный протокол шифрования Telegram"
+                "explanation": "MTProto — собственный протокол шифрования Telegram"
             },
             {
                 "question": "Сколько участников может быть в группе Telegram?",
@@ -75,76 +75,6 @@ questions_by_topic = {
                 "correct": 1,
                 "difficulty": "hard",
                 "explanation": "Россия блокировала Telegram с 2018 по 2020 год"
-            },
-            {
-                "question": "Какой максимальный размер файла можно отправить в Telegram?",
-                "options": ["1 ГБ", "2 ГБ", "4 ГБ", "8 ГБ"],
-                "correct": 2,
-                "difficulty": "medium",
-                "explanation": "Premium пользователи могут отправлять файлы до 4 ГБ"
-            },
-            {
-                "question": "Что такое 'секретный чат' в Telegram?",
-                "options": ["Чат с паролем", "Чат с шифрованием", "Чат с таймером", "Скрытый чат"],
-                "correct": 1,
-                "difficulty": "medium",
-                "explanation": "Секретные чаты используют end-to-end шифрование"
-            },
-            {
-                "question": "В каком году появились видеозвонки в Telegram?",
-                "options": ["2019", "2020", "2021", "2022"],
-                "correct": 1,
-                "difficulty": "hard",
-                "explanation": "Видеозвонки появились в Telegram в 2020 году"
-            },
-            {
-                "question": "Сколько символов может быть в одном сообщении Telegram?",
-                "options": ["4096", "8192", "16384", "32768"],
-                "correct": 0,
-                "difficulty": "hard",
-                "explanation": "Стандартное сообщение может содержать до 4096 символов"
-            },
-            {
-                "question": "Какой язык программирования используется для создания ботов Telegram?",
-                "options": ["Python", "Java", "C++", "Любой"],
-                "correct": 3,
-                "difficulty": "easy",
-                "explanation": "Можно использовать любой язык с HTTP-запросами"
-            },
-            {
-                "question": "Что такое Telegram Passport?",
-                "options": ["Документы", "Пароли", "Верификация", "Стикеры"],
-                "correct": 0,
-                "difficulty": "hard",
-                "explanation": "Passport хранит документы пользователя"
-            },
-            {
-                "question": "Как зовут брата Павла Дурова?",
-                "options": ["Алексей", "Николай", "Михаил", "Дмитрий"],
-                "correct": 1,
-                "difficulty": "hard",
-                "explanation": "Николай Дуров — сооснователь Telegram"
-            },
-            {
-                "question": "Сколько пользователей у Telegram в 2025?",
-                "options": ["500 млн", "700 млн", "900 млн", "1 млрд"],
-                "correct": 2,
-                "difficulty": "medium",
-                "explanation": "Telegram достиг 900 млн пользователей"
-            },
-            {
-                "question": "Что такое Telegram Premium?",
-                "options": ["Платные стикеры", "Больше функций", "Без рекламы", "Всё вышеперечисленное"],
-                "correct": 3,
-                "difficulty": "easy",
-                "explanation": "Premium дает много дополнительных возможностей"
-            },
-            {
-                "question": "В какой стране зарегистрирован Telegram?",
-                "options": ["Россия", "США", "ОАЭ", "Великобритания"],
-                "correct": 2,
-                "difficulty": "medium",
-                "explanation": "Штаб-квартира Telegram в Дубае"
             }
         ]
     },
@@ -158,14 +88,14 @@ questions_by_topic = {
                 "options": ["160", "170", "180", "190"],
                 "correct": 2,
                 "difficulty": "easy",
-                "explanation": "15 × 12 = 180 (15 × 10 = 150, 15 × 2 = 30, 150 + 30 = 180)"
+                "explanation": "15 × 12 = 180"
             },
             {
                 "question": "Чему равен квадратный корень из 144?",
                 "options": ["10", "11", "12", "13"],
                 "correct": 2,
                 "difficulty": "easy",
-                "explanation": "√144 = 12, потому что 12 × 12 = 144"
+                "explanation": "√144 = 12"
             },
             {
                 "question": "Сколько градусов в прямом угле?",
@@ -175,88 +105,18 @@ questions_by_topic = {
                 "explanation": "Прямой угол равен 90 градусам"
             },
             {
-                "question": "Чему равно число π (пи) с точностью до двух знаков?",
+                "question": "Чему равно число π?",
                 "options": ["3.14", "3.16", "3.18", "3.12"],
                 "correct": 0,
                 "difficulty": "medium",
-                "explanation": "π ≈ 3.14159... поэтому округленно 3.14"
+                "explanation": "π ≈ 3.14159"
             },
             {
                 "question": "Сколько будет 25% от 200?",
                 "options": ["25", "50", "75", "100"],
                 "correct": 1,
                 "difficulty": "easy",
-                "explanation": "25% = 1/4, 200 ÷ 4 = 50"
-            },
-            {
-                "question": "Чему равен квадрат числа 13?",
-                "options": ["139", "149", "159", "169"],
-                "correct": 3,
-                "difficulty": "easy",
-                "explanation": "13 × 13 = 169"
-            },
-            {
-                "question": "Сколько будет 7 × 8?",
-                "options": ["48", "56", "64", "72"],
-                "correct": 1,
-                "difficulty": "easy",
-                "explanation": "7 × 8 = 56"
-            },
-            {
-                "question": "Чему равен куб числа 5?",
-                "options": ["15", "25", "125", "625"],
-                "correct": 2,
-                "difficulty": "medium",
-                "explanation": "5 × 5 × 5 = 125"
-            },
-            {
-                "question": "Сколько будет 123 + 456?",
-                "options": ["569", "579", "589", "599"],
-                "correct": 1,
-                "difficulty": "easy",
-                "explanation": "123 + 456 = 579"
-            },
-            {
-                "question": "Чему равно 2 в десятой степени?",
-                "options": ["512", "1024", "2048", "4096"],
-                "correct": 1,
-                "difficulty": "medium",
-                "explanation": "2^10 = 1024"
-            },
-            {
-                "question": "Решите уравнение: x + 15 = 30",
-                "options": ["x = 5", "x = 10", "x = 15", "x = 20"],
-                "correct": 2,
-                "difficulty": "easy",
-                "explanation": "x = 30 - 15 = 15"
-            },
-            {
-                "question": "Сколько будет 99 - 27?",
-                "options": ["62", "72", "82", "92"],
-                "correct": 1,
-                "difficulty": "easy",
-                "explanation": "99 - 27 = 72"
-            },
-            {
-                "question": "Чему равно 3/4 от 100?",
-                "options": ["25", "50", "75", "80"],
-                "correct": 2,
-                "difficulty": "medium",
-                "explanation": "100 ÷ 4 × 3 = 75"
-            },
-            {
-                "question": "Сколько сантиметров в метре?",
-                "options": ["10", "100", "1000", "10000"],
-                "correct": 1,
-                "difficulty": "easy",
-                "explanation": "1 м = 100 см"
-            },
-            {
-                "question": "Чему равна площадь квадрата со стороной 6 см?",
-                "options": ["12", "24", "36", "48"],
-                "correct": 2,
-                "difficulty": "easy",
-                "explanation": "S = 6 × 6 = 36 см²"
+                "explanation": "200 ÷ 4 = 50"
             }
         ]
     },
@@ -270,7 +130,7 @@ questions_by_topic = {
                 "options": ["2016", "2018", "2020", "2022"],
                 "correct": 1,
                 "difficulty": "medium",
-                "explanation": "TikTok (Douyin) был запущен в 2016, но мировая популярность пришла в 2018"
+                "explanation": "Мировая популярность пришла в 2018"
             },
             {
                 "question": "Какое максимальное время видео в TikTok?",
@@ -284,91 +144,21 @@ questions_by_topic = {
                 "options": ["Песня", "Совместное видео", "Стикер", "Фильтр"],
                 "correct": 1,
                 "difficulty": "medium",
-                "explanation": "Duet позволяет записать видео рядом с другим видео"
+                "explanation": "Duet позволяет записать видео рядом с другим"
             },
             {
                 "question": "Какая самая популярная категория в TikTok?",
                 "options": ["Танцы", "Юмор", "Еда", "Образование"],
                 "correct": 0,
                 "difficulty": "easy",
-                "explanation": "Танцевальные видео — самая популярная категория"
+                "explanation": "Танцы — самая популярная категория"
             },
             {
-                "question": "Сколько пользователей у TikTok в 2026?",
-                "options": ["1 млрд", "1.5 млрд", "2 млрд", "2.5 млрд"],
-                "correct": 2,
-                "difficulty": "hard",
-                "explanation": "По прогнозам, в 2026 году у TikTok более 2 миллиардов пользователей"
-            },
-            {
-                "question": "Кто самый популярный тиктокер в мире?",
+                "question": "Кто самый популярный тиктокер?",
                 "options": ["Charli D'Amelio", "Khaby Lame", "Bella Poarch", "Addison Rae"],
                 "correct": 1,
                 "difficulty": "hard",
-                "explanation": "Khaby Lame — самый популярный с более 160 млн подписчиков"
-            },
-            {
-                "question": "Что такое TikTok Challenges?",
-                "options": ["Конкурсы", "Челленджи", "Игры", "Викторины"],
-                "correct": 1,
-                "difficulty": "easy",
-                "explanation": "Это популярные задания, которые повторяют пользователи"
-            },
-            {
-                "question": "Какая страна запустила TikTok?",
-                "options": ["США", "Россия", "Китай", "Япония"],
-                "correct": 2,
-                "difficulty": "medium",
-                "explanation": "TikTok создан китайской компанией ByteDance"
-            },
-            {
-                "question": "Как называются короткие видео в TikTok?",
-                "options": ["Ролики", "Клипы", "Видео", "Тиктоки"],
-                "correct": 0,
-                "difficulty": "easy",
-                "explanation": "Их часто называют просто роликами"
-            },
-            {
-                "question": "Что такое TikTok Live?",
-                "options": ["Прямой эфир", "Запись", "Чат", "Игра"],
-                "correct": 0,
-                "difficulty": "easy",
-                "explanation": "Live — это прямые трансляции"
-            },
-            {
-                "question": "Какая музыка чаще всего используется в TikTok?",
-                "options": ["Поп", "Рэп", "Хип-хоп", "Все жанры"],
-                "correct": 3,
-                "difficulty": "medium",
-                "explanation": "В TikTok используют музыку всех жанров"
-            },
-            {
-                "question": "Сколько лайков может набрать популярное видео?",
-                "options": ["1 млн", "10 млн", "50 млн", "100 млн"],
-                "correct": 3,
-                "difficulty": "medium",
-                "explanation": "Рекордные видео набирают более 100 млн лайков"
-            },
-            {
-                "question": "Что такое TikTok FYP?",
-                "options": ["Рекомендации", "Тренды", "Новинки", "Избранное"],
-                "correct": 0,
-                "difficulty": "hard",
-                "explanation": "For You Page — лента рекомендаций"
-            },
-            {
-                "question": "Кто такой Khaby Lame?",
-                "options": ["Певец", "Актер", "Тиктокер", "Режиссер"],
-                "correct": 2,
-                "difficulty": "easy",
-                "explanation": "Khaby Lame — самый популярный тиктокер"
-            },
-            {
-                "question": "Какой танец стал вирусным в 2020?",
-                "options": ["Renegade", "Savage", "Blinding Lights", "WAP"],
-                "correct": 0,
-                "difficulty": "hard",
-                "explanation": "Renegade стал первым массовым трендом TikTok"
+                "explanation": "Khaby Lame — более 160 млн подписчиков"
             }
         ]
     },
@@ -378,115 +168,47 @@ questions_by_topic = {
         "icon": "🎤",
         "questions": [
             {
-                "question": "Кто был самым прослушиваемым артистом 2025 года?",
+                "question": "Кто был самым прослушиваемым артистом 2025?",
                 "options": ["Taylor Swift", "The Weeknd", "Bad Bunny", "Drake"],
                 "correct": 0,
                 "difficulty": "medium",
-                "explanation": "Taylor Swift стала артисткой года с альбомом 'The Tortured Poets Department'"
+                "explanation": "Taylor Swift — артистка года"
             },
             {
                 "question": "Какой жанр стал самым популярным в 2026?",
                 "options": ["Поп", "Хип-хоп", "Электроника", "K-Pop"],
                 "correct": 3,
                 "difficulty": "hard",
-                "explanation": "K-Pop продолжает захватывать мир, BTS и NewJeans лидируют"
+                "explanation": "K-Pop продолжает захватывать мир"
             },
             {
-                "question": "Какой музыкальный фестиваль собрал больше всего зрителей в 2025?",
+                "question": "Какой фестиваль собрал больше всех в 2025?",
                 "options": ["Coachella", "Tomorrowland", "Гластонбери", "Lollapalooza"],
                 "correct": 1,
                 "difficulty": "hard",
-                "explanation": "Tomorrowland в Бельгии собрал рекордные 400 000 посетителей"
+                "explanation": "Tomorrowland собрал 400 000 посетителей"
             },
             {
-                "question": "Какая песня стала вирусной в TikTok в 2025?",
-                "options": ["Espresso - Sabrina Carpenter", "We Can't Be Friends - Ariana Grande", "Beautiful Things - Benson Boone", "Lose Control - Teddy Swims"],
+                "question": "Какая песня стала вирусной в 2025?",
+                "options": ["Espresso", "We Can't Be Friends", "Beautiful Things", "Lose Control"],
                 "correct": 0,
                 "difficulty": "medium",
-                "explanation": "Espresso Сабрины Карпентер стала главным хитом лета 2025"
-            },
-            {
-                "question": "Сколько стримов набрал Spotify в 2025?",
-                "options": ["100 млрд", "200 млрд", "300 млрд", "400 млрд"],
-                "correct": 2,
-                "difficulty": "hard",
-                "explanation": "В 2025 году на Spotify было прослушано более 300 миллиардов треков"
+                "explanation": "Espresso Сабрины Карпентер"
             },
             {
                 "question": "Кто выиграл Грэмми в 2026?",
                 "options": ["Taylor Swift", "Billie Eilish", "Olivia Rodrigo", "SZA"],
                 "correct": 0,
                 "difficulty": "hard",
-                "explanation": "Taylor Swift получила Грэмми за альбом года"
-            },
-            {
-                "question": "Какая группа дала самое кассовое турне 2025?",
-                "options": ["BTS", "Coldplay", "Ed Sheeran", "Beyoncé"],
-                "correct": 1,
-                "difficulty": "hard",
-                "explanation": "Coldplay собрали более $500 млн в туре Music of the Spheres"
-            },
-            {
-                "question": "Сколько альбомов продала Taylor Swift в 2025?",
-                "options": ["5 млн", "10 млн", "15 млн", "20 млн"],
-                "correct": 2,
-                "difficulty": "hard",
-                "explanation": "Только в США было продано более 15 млн копий"
-            },
-            {
-                "question": "Кто стал открытием года в 2025?",
-                "options": ["Sabrina Carpenter", "Chappell Roan", "Teddy Swims", "Benson Boone"],
-                "correct": 1,
-                "difficulty": "medium",
-                "explanation": "Chappell Roan стала сенсацией с альбомом 'The Rise and Fall'"
-            },
-            {
-                "question": "Какой стриминговый сервис лидирует в 2026?",
-                "options": ["Spotify", "Apple Music", "YouTube Music", "Tidal"],
-                "correct": 0,
-                "difficulty": "easy",
-                "explanation": "Spotify остается лидером с более чем 600 млн пользователей"
-            },
-            {
-                "question": "Кто самый прослушиваемый рэпер 2025?",
-                "options": ["Drake", "Kendrick Lamar", "Travis Scott", "21 Savage"],
-                "correct": 0,
-                "difficulty": "medium",
-                "explanation": "Drake остается королем стриминга"
-            },
-            {
-                "question": "Какая песня стала гимном 2025?",
-                "options": ["We Can't Be Friends", "Beautiful Things", "Espresso", "Lose Control"],
-                "correct": 2,
-                "difficulty": "medium",
-                "explanation": "Espresso играла везде от TikTok до радио"
-            },
-            {
-                "question": "Сколько концертов дала Taylor Swift в 2025?",
-                "options": ["50", "75", "100", "125"],
-                "correct": 2,
-                "difficulty": "hard",
-                "explanation": "Eras Tour продолжился с более чем 100 шоу"
-            },
-            {
-                "question": "Какой альбом был самым ожидаемым в 2025?",
-                "options": ["The Tortured Poets Department", "Hurry Up Tomorrow", "Radical Optimism", "Short n' Sweet"],
-                "correct": 0,
-                "difficulty": "medium",
-                "explanation": "Новый альбом Taylor Swift ждали миллионы"
-            },
-            {
-                "question": "Кто победил в номинации 'Лучший новый артист' на Грэмми-2026?",
-                "options": ["Sabrina Carpenter", "Chappell Roan", "Teddy Swims", "Victoria Monét"],
-                "correct": 1,
-                "difficulty": "hard",
-                "explanation": "Chappell Roan получила заслуженную награду"
+                "explanation": "Taylor Swift — альбом года"
             }
         ]
     }
 }
 
-# ===== КНОПКИ =====
+# ============================================================
+# КНОПКИ
+# ============================================================
 def main_menu():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="📚 Одиночная игра", callback_data="menu_single")],
@@ -508,7 +230,9 @@ def back_menu():
         [InlineKeyboardButton(text="◀️ Назад", callback_data="menu_back")]
     ])
 
-# ===== СТАРТ =====
+# ============================================================
+# СТАРТ
+# ============================================================
 @dp.message(Command("start"))
 async def start(message: types.Message):
     await db.get_or_create_user(
@@ -526,7 +250,9 @@ async def start(message: types.Message):
         parse_mode="Markdown"
     )
 
-# ===== МЕНЮ =====
+# ============================================================
+# МЕНЮ
+# ============================================================
 @dp.callback_query(F.data == "menu_back")
 async def go_back(callback: types.CallbackQuery):
     await callback.message.edit_text("🎯 Главное меню", reply_markup=main_menu())
@@ -573,7 +299,9 @@ async def stats(callback: types.CallbackQuery):
         await callback.message.edit_text(text, reply_markup=back_menu(), parse_mode="Markdown")
     await callback.answer()
 
-# ===== ОДИНОЧНАЯ ИГРА =====
+# ============================================================
+# ОДИНОЧНАЯ ИГРА
+# ============================================================
 @dp.callback_query(F.data == "menu_single")
 async def single_start(callback: types.CallbackQuery):
     uid = callback.from_user.id
@@ -589,11 +317,11 @@ async def single_start(callback: types.CallbackQuery):
     }
 
     await callback.message.edit_text(
-        f"🎮 Одиночная игра\n"
+        f"🎮 **Одиночная игра**\n"
         f"Тема: {questions_by_topic[topic_id]['name']}\n"
         f"Вопросов: 5\n\n"
         f"Начинаем...",
-        reply_markup=None
+        parse_mode="Markdown"
     )
     await callback.answer()
     await asyncio.sleep(1)
@@ -619,8 +347,9 @@ async def send_single_question(uid):
 
     await bot.send_message(
         uid,
-        f"❓ Вопрос {q_idx+1}/{len(session['questions'])}\n\n{q['question']}",
-        reply_markup=builder.as_markup()
+        f"❓ **Вопрос {q_idx+1}/{len(session['questions'])}**\n\n{q['question']}",
+        reply_markup=builder.as_markup(),
+        parse_mode="Markdown"
     )
 
 @dp.callback_query(lambda c: c.data and c.data.startswith("single_"))
@@ -646,11 +375,11 @@ async def single_answer(callback: types.CallbackQuery):
     if correct:
         session['score'] += points
         await callback.answer(f"✅ Верно! +{points}")
-        await callback.message.answer(f"✅ Верно! +{points}\n{q['explanation']}")
+        await callback.message.answer(f"✅ **Верно!** +{points}\n\n{q['explanation']}", parse_mode="Markdown")
     else:
         correct_answer = q['options'][q['correct']]
-        await callback.answer(f"❌ Неверно")
-        await callback.message.answer(f"❌ Неверно\nПравильный ответ: {correct_answer}\n{q['explanation']}")
+        await callback.answer("❌ Неверно")
+        await callback.message.answer(f"❌ **Неверно**\n\nПравильный ответ: **{correct_answer}**\n\n{q['explanation']}", parse_mode="Markdown")
 
     session['current'] += 1
     await callback.message.delete()
@@ -677,13 +406,15 @@ async def finish_single_game(uid):
     })
 
     result = (
-        f"🎉 ИГРА ОКОНЧЕНА!\n\n"
+        f"🎉 **ИГРА ОКОНЧЕНА!**\n\n"
         f"⭐ Результат: {score} из {total}\n"
         f"📊 Точность: {percentage:.1f}%"
     )
-    await bot.send_message(uid, result)
+    await bot.send_message(uid, result, parse_mode="Markdown")
 
-# ===== PVP =====
+# ============================================================
+# PVP - ИСПРАВЛЕННАЯ ВЕРСИЯ
+# ============================================================
 @dp.callback_query(F.data == "pvp_find")
 async def pvp_find(callback: types.CallbackQuery):
     uid = callback.from_user.id
@@ -730,8 +461,8 @@ async def try_match():
     game_id = pvp_queue.create_game(p1, p2, questions)
 
     topic_name = questions_by_topic[topic_id]['name']
-    await bot.send_message(p1['id'], f"🎮 Соперник найден!\nТема: {topic_name}")
-    await bot.send_message(p2['id'], f"🎮 Соперник найден!\nТема: {topic_name}")
+    await bot.send_message(p1['id'], f"🎮 **Соперник найден!**\nТема: {topic_name}", parse_mode="Markdown")
+    await bot.send_message(p2['id'], f"🎮 **Соперник найден!**\nТема: {topic_name}", parse_mode="Markdown")
 
     await asyncio.sleep(1)
     await send_pvp_question(p1['id'], game_id)
@@ -755,37 +486,56 @@ async def send_pvp_question(user_id, game_id):
 
     builder = InlineKeyboardBuilder()
     for i, opt in enumerate(q['options']):
+        # КОРОТКИЙ ФОРМАТ - РАБОТАЕТ НА ВСЕХ УСТРОЙСТВАХ
         builder.button(text=opt, callback_data=f"pvp_{game_id}_{q_idx}_{i}")
     builder.adjust(2)
 
     try:
         await bot.send_message(
             user_id,
-            f"❓ Вопрос {q_idx+1}/{len(game['questions'])}\n\n{q['question']}",
-            reply_markup=builder.as_markup()
+            f"❓ **Вопрос {q_idx+1}/{len(game['questions'])}**\n\n{q['question']}",
+            reply_markup=builder.as_markup(),
+            parse_mode="Markdown"
         )
-    except:
-        pass
+    except Exception as e:
+        print(f"Ошибка отправки PvP вопроса: {e}")
 
 @dp.callback_query(lambda c: c.data and c.data.startswith("pvp_"))
 async def pvp_answer(callback: types.CallbackQuery):
     try:
-        _, game_id, q_idx, ans_idx = callback.data.split("_")
-        q_idx = int(q_idx)
-        ans_idx = int(ans_idx)
-    except:
+        # Разбираем короткий формат: pvp_GAMEID_QIDX_AIDX
+        parts = callback.data.split("_")
+        if len(parts) != 4:
+            await callback.answer("Ошибка формата")
+            return
+            
+        game_id = parts[1]
+        q_idx = int(parts[2])
+        ans_idx = int(parts[3])
+        
+    except Exception as e:
+        print(f"Ошибка парсинга PvP: {e}")
         await callback.answer("Ошибка данных")
         return
 
     uid = callback.from_user.id
     game = pvp_queue.active_games.get(game_id)
+    
     if not game:
         await callback.answer("Игра не найдена")
         return
 
-    player = game['players'][uid]
+    player = game['players'].get(uid)
+    if not player:
+        await callback.answer("Ты не в этой игре")
+        return
+
+    if player['finished']:
+        await callback.answer("Игра уже закончена")
+        return
+
     if player['current'] != q_idx:
-        await callback.answer("Не твой ход")
+        await callback.answer("Не твой вопрос")
         return
 
     q = game['questions'][q_idx]
@@ -795,18 +545,20 @@ async def pvp_answer(callback: types.CallbackQuery):
     if correct:
         player['score'] += points
         await callback.answer("✅ Верно!")
-        await callback.message.answer(f"✅ Верно! +{points}\n{q['explanation']}")
+        await callback.message.answer(f"✅ **Верно!** +{points} очков\n\n{q['explanation']}", parse_mode="Markdown")
     else:
         correct_answer = q['options'][q['correct']]
         await callback.answer("❌ Неверно")
-        await callback.message.answer(f"❌ Неверно\nПравильно: {correct_answer}\n{q['explanation']}")
+        await callback.message.answer(f"❌ **Неверно!**\n\nПравильный ответ: **{correct_answer}**\n\n{q['explanation']}", parse_mode="Markdown")
 
     player['current'] += 1
+    
     if player['current'] >= len(game['questions']):
         player['finished'] = True
 
     await callback.message.delete()
 
+    # Проверяем, закончили ли оба
     other_id = [pid for pid in game['players'] if pid != uid][0]
     if game['players'][other_id]['finished'] and player['finished']:
         await finish_pvp_game(game_id)
@@ -844,7 +596,8 @@ async def finish_pvp_game(game_id):
     result += f"{p1['name']}: {p1['score']} очков\n"
     result += f"{p2['name']}: {p2['score']} очков\n\n"
     if winner:
-        result += f"🎉 Победитель: {game['players'][winner]['name']}"
+        winner_name = game['players'][winner]['name']
+        result += f"🎉 Победитель: {winner_name}"
     else:
         result += "🤝 Ничья"
 
@@ -853,13 +606,15 @@ async def finish_pvp_game(game_id):
 
     pvp_queue.end_game(game_id)
 
-# ===== ЗАПУСК =====
+# ============================================================
+# ЗАПУСК
+# ============================================================
 async def main():
     await db.create_tables()
     print("✅ БОТ ЗАПУЩЕН")
     print(f"📚 Тем: {len(questions_by_topic)}")
     print(f"📝 Всего вопросов: {sum(len(t['questions']) for t in questions_by_topic.values())}")
-    print("👥 PvP режим активен")
+    print("👥 PvP режим активен (исправлен)")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
