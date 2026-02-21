@@ -29,7 +29,7 @@ DIFFICULTY_POINTS = {
 }
 
 # ============================================================
-# ВОПРОСЫ - 4 ТЕМЫ С ПОЛНЫМИ ВОПРОСАМИ
+# ВОПРОСЫ - ПОЛНАЯ БАЗА
 # ============================================================
 questions_by_topic = {
     "telegram": {
@@ -71,6 +71,76 @@ questions_by_topic = {
                 "correct": 1,
                 "difficulty": "hard",
                 "explanation": "Россия блокировала Telegram с 2018 по 2020 год"
+            },
+            {
+                "question": "Какой максимальный размер файла можно отправить в Telegram?",
+                "options": ["1 ГБ", "2 ГБ", "4 ГБ", "8 ГБ"],
+                "correct": 1,
+                "difficulty": "medium",
+                "explanation": "Premium用户可以 отправлять файлы до 4 ГБ"
+            },
+            {
+                "question": "Что такое 'секретный чат' в Telegram?",
+                "options": ["Чат с паролем", "Чат с шифрованием", "Чат с таймером", "Скрытый чат"],
+                "correct": 1,
+                "difficulty": "medium",
+                "explanation": "Секретные чаты используют end-to-end шифрование"
+            },
+            {
+                "question": "В каком году появились видеозвонки в Telegram?",
+                "options": ["2019", "2020", "2021", "2022"],
+                "correct": 1,
+                "difficulty": "hard",
+                "explanation": "Видеозвонки появились в Telegram в 2020 году"
+            },
+            {
+                "question": "Сколько символов может быть в одном сообщении Telegram?",
+                "options": ["4096", "8192", "16384", "32768"],
+                "correct": 0,
+                "difficulty": "hard",
+                "explanation": "Стандартное сообщение может содержать до 4096 символов"
+            },
+            {
+                "question": "Какой язык программирования используется для создания ботов Telegram?",
+                "options": ["Python", "Java", "C++", "Любой"],
+                "correct": 3,
+                "difficulty": "easy",
+                "explanation": "Можно использовать любой язык с HTTP-запросами"
+            },
+            {
+                "question": "Что такое Telegram Passport?",
+                "options": ["Документы", "Пароли", "Верификация", "Стикеры"],
+                "correct": 0,
+                "difficulty": "hard",
+                "explanation": "Passport хранит документы пользователя"
+            },
+            {
+                "question": "Как зовут брата Павла Дурова?",
+                "options": ["Алексей", "Николай", "Михаил", "Дмитрий"],
+                "correct": 1,
+                "difficulty": "hard",
+                "explanation": "Николай Дуров — сооснователь Telegram"
+            },
+            {
+                "question": "Сколько пользователей у Telegram в 2025?",
+                "options": ["500 млн", "700 млн", "900 млн", "1 млрд"],
+                "correct": 2,
+                "difficulty": "medium",
+                "explanation": "Telegram достиг 900 млн пользователей"
+            },
+            {
+                "question": "Что такое Telegram Premium?",
+                "options": ["Платные стикеры", "Больше функций", "Без рекламы", "Всё вышеперечисленное"],
+                "correct": 3,
+                "difficulty": "easy",
+                "explanation": "Premium дает много дополнительных возможностей"
+            },
+            {
+                "question": "В какой стране зарегистрирован Telegram?",
+                "options": ["Россия", "США", "ОАЭ", "Великобритания"],
+                "correct": 2,
+                "difficulty": "medium",
+                "explanation": "Штаб-квартира Telegram в Дубае"
             }
         ]
     },
@@ -113,6 +183,76 @@ questions_by_topic = {
                 "correct": 1,
                 "difficulty": "easy",
                 "explanation": "25% = 1/4, 200 ÷ 4 = 50"
+            },
+            {
+                "question": "Чему равен квадрат числа 13?",
+                "options": ["139", "149", "159", "169"],
+                "correct": 3,
+                "difficulty": "easy",
+                "explanation": "13 × 13 = 169"
+            },
+            {
+                "question": "Сколько будет 7 × 8?",
+                "options": ["48", "56", "64", "72"],
+                "correct": 1,
+                "difficulty": "easy",
+                "explanation": "7 × 8 = 56"
+            },
+            {
+                "question": "Чему равен куб числа 5?",
+                "options": ["15", "25", "125", "625"],
+                "correct": 2,
+                "difficulty": "medium",
+                "explanation": "5 × 5 × 5 = 125"
+            },
+            {
+                "question": "Сколько будет 123 + 456?",
+                "options": ["569", "579", "589", "599"],
+                "correct": 1,
+                "difficulty": "easy",
+                "explanation": "123 + 456 = 579"
+            },
+            {
+                "question": "Чему равно 2 в десятой степени?",
+                "options": ["512", "1024", "2048", "4096"],
+                "correct": 1,
+                "difficulty": "medium",
+                "explanation": "2^10 = 1024"
+            },
+            {
+                "question": "Решите уравнение: x + 15 = 30",
+                "options": ["x = 5", "x = 10", "x = 15", "x = 20"],
+                "correct": 2,
+                "difficulty": "easy",
+                "explanation": "x = 30 - 15 = 15"
+            },
+            {
+                "question": "Сколько будет 99 - 27?",
+                "options": ["62", "72", "82", "92"],
+                "correct": 1,
+                "difficulty": "easy",
+                "explanation": "99 - 27 = 72"
+            },
+            {
+                "question": "Чему равно 3/4 от 100?",
+                "options": ["25", "50", "75", "80"],
+                "correct": 2,
+                "difficulty": "medium",
+                "explanation": "100 ÷ 4 × 3 = 75"
+            },
+            {
+                "question": "Сколько сантиметров в метре?",
+                "options": ["10", "100", "1000", "10000"],
+                "correct": 1,
+                "difficulty": "easy",
+                "explanation": "1 м = 100 см"
+            },
+            {
+                "question": "Чему равна площадь квадрата со стороной 6 см?",
+                "options": ["12", "24", "36", "48"],
+                "correct": 2,
+                "difficulty": "easy",
+                "explanation": "S = 6 × 6 = 36 см²"
             }
         ]
     },
@@ -155,6 +295,76 @@ questions_by_topic = {
                 "correct": 2,
                 "difficulty": "hard",
                 "explanation": "По прогнозам, в 2026 году у TikTok более 2 миллиардов пользователей"
+            },
+            {
+                "question": "Кто самый популярный тиктокер в мире?",
+                "options": ["Charli D'Amelio", "Khaby Lame", "Bella Poarch", "Addison Rae"],
+                "correct": 1,
+                "difficulty": "hard",
+                "explanation": "Khaby Lame — самый популярный с более 160 млн подписчиков"
+            },
+            {
+                "question": "Что такое TikTok Challenges?",
+                "options": ["Конкурсы", "Челленджи", "Игры", "Викторины"],
+                "correct": 1,
+                "difficulty": "easy",
+                "explanation": "Это популярные задания, которые повторяют пользователи"
+            },
+            {
+                "question": "Какая страна запустила TikTok?",
+                "options": ["США", "Россия", "Китай", "Япония"],
+                "correct": 2,
+                "difficulty": "medium",
+                "explanation": "TikTok создан китайской компанией ByteDance"
+            },
+            {
+                "question": "Как называются короткие видео в TikTok?",
+                "options": ["Ролики", "Клипы", "Видео", "Тиктоки"],
+                "correct": 0,
+                "difficulty": "easy",
+                "explanation": "Их часто называют просто роликами"
+            },
+            {
+                "question": "Что такое TikTok Live?",
+                "options": ["Прямой эфир", "Запись", "Чат", "Игра"],
+                "correct": 0,
+                "difficulty": "easy",
+                "explanation": "Live — это прямые трансляции"
+            },
+            {
+                "question": "Какая музыка чаще всего используется в TikTok?",
+                "options": ["Поп", "Рэп", "Хип-хоп", "Все жанры"],
+                "correct": 3,
+                "difficulty": "medium",
+                "explanation": "В TikTok используют музыку всех жанров"
+            },
+            {
+                "question": "Сколько лайков может набрать популярное видео?",
+                "options": ["1 млн", "10 млн", "50 млн", "100 млн"],
+                "correct": 3,
+                "difficulty": "medium",
+                "explanation": "Рекордные видео набирают более 100 млн лайков"
+            },
+            {
+                "question": "Что такое TikTok FYP?",
+                "options": ["Рекомендации", "Тренды", "Новинки", "Избранное"],
+                "correct": 0,
+                "difficulty": "hard",
+                "explanation": "For You Page — лента рекомендаций"
+            },
+            {
+                "question": "Кто такой Khaby Lame?",
+                "options": ["Певец", "Актер", "Тиктокер", "Режиссер"],
+                "correct": 2,
+                "difficulty": "easy",
+                "explanation": "Khaby Lame — самый популярный тиктокер"
+            },
+            {
+                "question": "Какой танец стал вирусным в 2020?",
+                "options": ["Renegade", "Savage", "Blinding Lights", "WAP"],
+                "correct": 0,
+                "difficulty": "hard",
+                "explanation": "Renegade стал первым массовым трендом TikTok"
             }
         ]
     },
@@ -197,6 +407,76 @@ questions_by_topic = {
                 "correct": 2,
                 "difficulty": "hard",
                 "explanation": "В 2025 году на Spotify было прослушано более 300 миллиардов треков"
+            },
+            {
+                "question": "Кто выиграл Грэмми в 2026?",
+                "options": ["Taylor Swift", "Billie Eilish", "Olivia Rodrigo", "SZA"],
+                "correct": 0,
+                "difficulty": "hard",
+                "explanation": "Taylor Swift получила Грэмми за альбом года"
+            },
+            {
+                "question": "Какая группа дала самое кассовое турне 2025?",
+                "options": ["BTS", "Coldplay", "Ed Sheeran", "Beyoncé"],
+                "correct": 1,
+                "difficulty": "hard",
+                "explanation": "Coldplay собрали более $500 млн в туре Music of the Spheres"
+            },
+            {
+                "question": "Сколько альбомов продала Taylor Swift в 2025?",
+                "options": ["5 млн", "10 млн", "15 млн", "20 млн"],
+                "correct": 2,
+                "difficulty": "hard",
+                "explanation": "Только в США было продано более 15 млн копий"
+            },
+            {
+                "question": "Кто стал открытием года в 2025?",
+                "options": ["Sabrina Carpenter", "Chappell Roan", "Teddy Swims", "Benson Boone"],
+                "correct": 1,
+                "difficulty": "medium",
+                "explanation": "Chappell Roan стала сенсацией с альбомом 'The Rise and Fall'"
+            },
+            {
+                "question": "Какой стриминговый сервис лидирует в 2026?",
+                "options": ["Spotify", "Apple Music", "YouTube Music", "Tidal"],
+                "correct": 0,
+                "difficulty": "easy",
+                "explanation": "Spotify остается лидером с более чем 600 млн пользователей"
+            },
+            {
+                "question": "Кто самый прослушиваемый рэпер 2025?",
+                "options": ["Drake", "Kendrick Lamar", "Travis Scott", "21 Savage"],
+                "correct": 0,
+                "difficulty": "medium",
+                "explanation": "Drake остается королем стриминга"
+            },
+            {
+                "question": "Какая песня стала гимном 2025?",
+                "options": ["We Can't Be Friends", "Beautiful Things", "Espresso", "Lose Control"],
+                "correct": 2,
+                "difficulty": "medium",
+                "explanation": "Espresso играла везде от TikTok до радио"
+            },
+            {
+                "question": "Сколько концертов дала Taylor Swift в 2025?",
+                "options": ["50", "75", "100", "125"],
+                "correct": 2,
+                "difficulty": "hard",
+                "explanation": "Eras Tour продолжился с более чем 100 шоу"
+            },
+            {
+                "question": "Какой альбом был самым ожидаемым в 2025?",
+                "options": ["The Tortured Poets Department", "Hurry Up Tomorrow", "Radical Optimism", "Short n' Sweet"],
+                "correct": 0,
+                "difficulty": "medium",
+                "explanation": "Новый альбом Taylor Swift ждали миллионы"
+            },
+            {
+                "question": "Кто победил в номинации 'Лучший новый артист' на Грэмми-2026?",
+                "options": ["Sabrina Carpenter", "Chappell Roan", "Teddy Swims", "Victoria Monét"],
+                "correct": 1,
+                "difficulty": "hard",
+                "explanation": "Chappell Roan получила заслуженную награду"
             }
         ]
     }
@@ -271,7 +551,7 @@ async def cmd_start(message: types.Message):
         f"📚 Всего тем: {len(questions_by_topic)}\n"
         f"📝 Всего вопросов: {sum(len(t['questions']) for t in questions_by_topic.values())}\n"
         "⭐ Система сложности: 1-5 баллов\n"
-        "🔄 Вопросы каждый раз новые\n"
+        "🔄 Вопросы меняются каждый раз\n"
         "🏆 Соревнуйся с другими игроками\n\n"
         "Выбери действие:"
     )
@@ -326,13 +606,14 @@ async def start_game_with_difficulty(callback: types.CallbackQuery):
     else:
         filtered = all_questions
     
-    # Если недостаточно вопросов, берем все
+    # Если вопросов меньше, чем нужно, берем все доступные
     if len(filtered) < QUESTIONS_PER_GAME:
-        filtered = all_questions
-    
-    # Перемешиваем и берем нужное количество
-    random.shuffle(filtered)
-    game_questions = filtered[:QUESTIONS_PER_GAME]
+        # Если все равно мало, просто берем все что есть
+        selected_questions = filtered
+    else:
+        # Перемешиваем и выбираем случайные 10 вопросов
+        random.shuffle(filtered)
+        selected_questions = filtered[:QUESTIONS_PER_GAME]
     
     # Создаем сессию
     user_id = callback.from_user.id
@@ -345,20 +626,21 @@ async def start_game_with_difficulty(callback: types.CallbackQuery):
         "username": callback.from_user.username,
         "topic": topic_id,
         "topic_name": questions_by_topic[topic_id]["name"],
-        "questions": game_questions,
-        "total": len(game_questions),
+        "questions": selected_questions,
+        "total": len(selected_questions),
         "difficulty": difficulty,
         "start_time": now.isoformat(),
         "answers": []
     }
     
-    max_score = calculate_max_score(game_questions)
+    max_score = calculate_max_score(selected_questions)
     
     await callback.message.edit_text(
         f"🎮 **Игра начинается!**\n\n"
         f"📚 Тема: {questions_by_topic[topic_id]['name']}\n"
-        f"📝 Вопросов: {len(game_questions)}\n"
-        f"⭐ Макс. очков: {max_score}",
+        f"📝 Вопросов: {len(selected_questions)}\n"
+        f"⭐ Макс. очков: {max_score}\n"
+        f"🔄 Вопросы выбраны случайно!",
         parse_mode="Markdown"
     )
     await asyncio.sleep(1)
